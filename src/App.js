@@ -1,6 +1,10 @@
+// @flow
+
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+
+let x = 1 + 1;
 
 class App extends Component {
   render() {
