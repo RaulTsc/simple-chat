@@ -2,19 +2,46 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
+.header {
   background-color: #222;
   height: 150px;
   padding: 20px;
   color: white;
 }
 
-.App-intro {
+.chatMembers {
+  width: 30%;
+  display: inline-block;
+  float: left;
+  height: 700px;
+  background: antiquewhite;
+}
+
+.chat {
+  width: 70%;
+  height: 500px;
+  display: inline-block;
+  background: aliceblue;
+}
+
+.inputWrapper {
+  display: inline-block;
+  width: 70%;
+}
+
+.input {
+  width: 80%;
+  padding: 0;
+  margin: 0;
+}
+
+.button {
+  width: 19%;
+  padding: 0;
+  margin: 0;
+}
+
+.intro {
   font-size: large;
 }
 

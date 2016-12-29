@@ -1,25 +1,52 @@
 // @flow
 
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+
 import './App.css';
 
-let x = 1 + 1;
+class ChatMembers extends Component {
+    render() {
+        return (
+            <div className="chatMembers">
+                <ul>
+                    <li>Member 1</li>
+                    <li>Member 2</li>
+                    <li>Member 3</li>
+                </ul>
+            </div>
+        );
+    }
+}
+
+class MainChat extends Component {
+    render() {
+        return (
+            <div>
+                <div className="chat"></div>
+
+                <div className="inputWrapper">
+                    <input type="text" className="input"/>
+                    <button className="button">Submit</button>
+                </div>
+            </div>
+        );
+    }
+}
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App">
+                <div className="header">
+                    <h2>Simple Chat</h2>
+                </div>
+
+                <ChatMembers />
+
+                <MainChat />
+            </div>
+        );
+    }
 }
 
 export default App;
