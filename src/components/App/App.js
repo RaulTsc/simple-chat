@@ -2,11 +2,18 @@
 
 import React, {Component} from 'react';
 
-import './App.css'
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
 
 import MessagesListContainer from '../../containers/MessagesListContainer';
 import ChatInput from '../ChatInput/ChatInput';
 import ChatMembers from '../ChatMembers/ChatMembers';
+
+import reducer from '../../reducers';
+
+const store = createStore(reducer);
+
+import './App.css'
 
 class Header extends Component {
     render() {
@@ -21,12 +28,14 @@ class Header extends Component {
 class App extends Component {
     render() {
         return (
-            <div className="App">
-                <Header />
-                <ChatMembers />
-                <MessagesListContainer />
-                <ChatInput />
-            </div>
+            <Provider store={store}>
+                <div className="App">
+                    <Header />
+                    <ChatMembers />
+                    <MessagesListContainer />
+                    <ChatInput />
+                </div>
+            </Provider>
         )
     }
 }

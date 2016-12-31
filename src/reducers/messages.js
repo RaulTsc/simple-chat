@@ -1,3 +1,5 @@
+// @flow
+
 const messages = (state = [], action) => {
     switch (action.type) {
         case 'SEND_MSG':

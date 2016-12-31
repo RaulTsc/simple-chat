@@ -1,0 +1,8 @@
+.loginButtonWrapper {
+    text-align: center;
+}
+
+.loginButtonWrapper span {
+    display: inline-block;
+    margin-top: 100px;
+}
