@@ -1,0 +1,9 @@
+.chat {
+    width: 70%;
+    height: 500px;
+    display: inline-block;
+    background: aliceblue;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
