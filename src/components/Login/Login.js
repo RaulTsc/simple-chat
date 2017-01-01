@@ -3,14 +3,19 @@
 import React, {Component} from 'react';
 import FacebookLogin from 'react-facebook-login';
 
+import {auth} from '../../helpers';
+
 import './Login.css'
 
-const componentClicked = () => {};
-const responseFacebook = (response) => {
-    console.log(response);
-};
-
 class Login extends Component {
+    responseFacebook(response) {
+        auth.login({
+            name  : response.name,
+            id    : response.id,
+            avatar: response.picture.data.url
+        });
+    }
+
     render() {
         return (
             <div className="loginButtonWrapper">
@@ -18,8 +23,7 @@ class Login extends Component {
                     appId="371359853214253"
                     autoLoad={true}
                     fields="name,email,picture"
-                    onClick={componentClicked}
-                    callback={responseFacebook} />
+                    callback={this.responseFacebook}/>
             </div>
         )
     }

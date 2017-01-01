@@ -9,8 +9,10 @@ export const auth = {
         return !!localStorage.token;
     },
 
-    login: () => {
-        localStorage.token = '123';
+    login: (userInfo) => {
+        // Make http register request
+
+        localStorage.token = userInfo.id;
     },
 
     logout: () => {

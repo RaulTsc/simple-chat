@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 
+import Header from '../Header/Header'
 import MessagesListContainer from '../../containers/MessagesListContainer';
 import ChatInput from '../ChatInput/ChatInput';
 import ChatMembers from '../ChatMembers/ChatMembers';
@@ -14,16 +15,6 @@ import reducer from '../../reducers';
 const store = createStore(reducer);
 
 import './App.css'
-
-class Header extends Component {
-    render() {
-        return (
-            <div className="header">
-                <h2>Simple Chat</h2>
-            </div>
-        )
-    }
-}
 
 class App extends Component {
     render() {
