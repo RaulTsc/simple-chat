@@ -5,3 +5,20 @@
     height: 700px;
     background: antiquewhite;
 }
+
+.chatMemberContainer {
+    display: flex;
+    height: 30px;
+}
+
+.chatMemberContainer img {
+    width: 30px;
+    height: 30px;
+}
+
+.chatMemberContainer p {
+    display: inline-block;
+    margin-top: 8px;
+    margin-left: 5px;
+    height: 30px;
+}

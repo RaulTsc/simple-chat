@@ -11,7 +11,10 @@ const ChatMembers = ({members}) => {
         <div className="chatMembers">
             <ul>
                 {members.map(member =>
-                    <p key={member.id}>{member.name}</p>
+                    <li className="chatMemberContainer">
+                        <img src={member.avatar} />
+                        <p key={member.id}>{member.name}</p>
+                    </li>
                 )}
             </ul>
         </div>
