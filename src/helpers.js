@@ -3,22 +3,7 @@
 // React-router stuff
 import useBasename from 'history/lib/useBasename'
 
-// Handles login logic
-export const auth = {
-    loggedIn: () => {
-        return !!localStorage.token;
-    },
-
-    login: (userInfo) => {
-        // Make http register request
-
-        localStorage.token = userInfo.id;
-    },
-
-    logout: () => {
-        // Not implemented at this point :)
-    }
-};
+import auth from './auth';
 
 // Redirect to /login when trying to access anything and not logged in
 export const requireAuth = (nextState, replace) => {

@@ -5,3 +5,10 @@ export const sendMessage = (text) => ({
     type: 'SEND_MSG',
     text
 });
+
+export const createUser = (user) => ({
+    id    : user.id,
+    type  : 'USER_CREATED',
+    name  : user.name,
+    avatar: user.avatar
+});

@@ -12,11 +12,19 @@ import {withExampleBasename, requireAuth, notLoggedIn} from './helpers';
 
 import './index.css';
 
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+
+import reducer from './reducers';
+const store = createStore(reducer);
+
 ReactDOM.render(
-    <Router history={withExampleBasename(browserHistory, __dirname)}>
-        <Route path="/login" component={Login} onEnter={notLoggedIn}/>
-        <Route path="*" component={App} onEnter={requireAuth}/>
-    </Router>,
+    <Provider store={store}>
+        <Router history={withExampleBasename(browserHistory, __dirname)}>
+            <Route path="/login" component={Login} onEnter={notLoggedIn}/>
+            <Route path="*" component={App} onEnter={requireAuth}/>
+        </Router>
+    </Provider>,
     document.getElementById('root')
 );
 

@@ -1,21 +1,25 @@
 // @flow
 
-import React, {Component} from 'react';
+import React, {PropTypes} from 'react'
 
 import './ChatMembers.css'
 
-class ChatMembers extends Component {
-    render() {
-        return (
-            <div className="chatMembers">
-                <ul>
-                    <li>Member 1</li>
-                    <li>Member 2</li>
-                    <li>Member 3</li>
-                </ul>
-            </div>
-        )
-    }
-}
+const ChatMembers = ({members}) => (
+    <div className="chatMembers">
+        <ul>
+            {members.map(member =>
+                <p key={member.id}>{member.name}</p>
+            )}
+        </ul>
+    </div>
+);
+
+ChatMembers.propTypes = {
+    members: PropTypes.arrayOf(PropTypes.shape({
+        id    : PropTypes.string.isRequired,
+        name  : PropTypes.string.isRequired,
+        avatar: PropTypes.string.isRequired
+    }).isRequired).isRequired
+};
 
 export default ChatMembers;

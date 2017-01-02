@@ -1,22 +1,46 @@
 // @flow
 
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import {sendMessage} from '../../actions'
 
+import io from 'socket.io-client';
+const socket = io.connect();
+
 import './ChatInput.css'
 
-let ChatInput = ({dispatch}) => {
+const mapStateToProps = (state) => {
+    state.members = [
+        {
+            id    : '1',
+            name  : 'Raul Tomescu',
+            avatar: ''
+        }
+    ];
+    return {
+        members: state.members
+    }
+};
+
+
+let ChatInput = ({dispatch, members}) => {
     let input;
 
-    let handleFormSubmit = e => {
+    console.log(members);
+
+    socket.on('chat message', (msg) => {
+        dispatch(sendMessage(msg));
+    });
+
+    let handleFormSubmit = (e) => {
         e.preventDefault();
 
         if (!input.value.trim()) return;
 
-        dispatch(sendMessage(input.value))
-        input.value = ''
+        socket.emit('chat message', input.value.trim());
+
+        input.value = '';
     };
 
     return (
@@ -32,6 +56,16 @@ let ChatInput = ({dispatch}) => {
     )
 };
 
-ChatInput = connect()(ChatInput);
+ChatInput.propTypes = {
+    members: PropTypes.arrayOf(PropTypes.shape({
+        id    : PropTypes.string.isRequired,
+        name  : PropTypes.string.isRequired,
+        avatar: PropTypes.string.isRequired
+    }).isRequired).isRequired
+};
+
+ChatInput = connect(
+    mapStateToProps
+)(ChatInput);
 
 export default ChatInput;
