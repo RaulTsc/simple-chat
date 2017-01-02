@@ -3,6 +3,7 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 import {connect} from 'react-redux'
+import {browserHistory} from 'react-router';
 
 import auth from '../../auth';
 import {createUser} from '../../actions'
@@ -19,6 +20,8 @@ let Login = ({dispatch}) => {
 
         auth.login(user);
         dispatch(createUser(user));
+
+        browserHistory.push('/');
     };
 
     return (

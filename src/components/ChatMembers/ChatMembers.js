@@ -4,15 +4,19 @@ import React, {PropTypes} from 'react'
 
 import './ChatMembers.css'
 
-const ChatMembers = ({members}) => (
-    <div className="chatMembers">
-        <ul>
-            {members.map(member =>
-                <p key={member.id}>{member.name}</p>
-            )}
-        </ul>
-    </div>
-);
+const ChatMembers = ({members}) => {
+    console.log(members);
+
+    return (
+        <div className="chatMembers">
+            <ul>
+                {members.map(member =>
+                    <p key={member.id}>{member.name}</p>
+                )}
+            </ul>
+        </div>
+    )
+};
 
 ChatMembers.propTypes = {
     members: PropTypes.arrayOf(PropTypes.shape({
