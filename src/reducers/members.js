@@ -20,6 +20,28 @@ const members = (state = {currentMember: {}, allMembers: []}, action) => {
             };
             break;
 
+        case 'ONLINE_USERS':
+            let newAllMembers = [];
+
+            state.allMembers.forEach(member => {
+                member.isOnline = false;
+
+                action.users.forEach(user => {
+                    if (member.id === user.userId) {
+                        member.isOnline = true;
+                    }
+                });
+
+                newAllMembers.push(member);
+            });
+
+            state = {
+                ...state,
+                allMembers: newAllMembers
+            };
+
+            break;
+
         default:
         // Do nothing
     }

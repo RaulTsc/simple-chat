@@ -19,16 +19,27 @@ app.use(express.static(path.resolve(__dirname, '..', 'build')));
 // So that express knows how to properly parse json
 app.use(bodyParser.json());
 
+let onlineUsers = [];
+
 io.on('connection', (socket) => {
     socket.on('chat message', (msg) => {
         io.emit('chat message', msg);
     });
 
     socket.on('disconnect', () => {
-        console.log('user disconnected');
+        onlineUsers = onlineUsers.filter(x => x.socketId !== socket.id);
+        io.sockets.emit('onlineUsers', onlineUsers);
     });
 
-    console.log('user connected');
+    socket.on('handshakeComplete', (userData) => {
+        onlineUsers.push(userData);
+        io.sockets.emit('onlineUsers', onlineUsers);
+        console.log('handshake complete');
+    });
+
+    io.sockets.emit('onlineUsers', onlineUsers);
+
+    socket.emit('handshake', socket.id);
 });
 
 app.post('/createUser', (req, res) => {
@@ -36,7 +47,15 @@ app.post('/createUser', (req, res) => {
 });
 
 app.get('/users', (req, res) => {
-    res.send(getUsers());
+    let users = getUsers();
+
+    users = users.map(user => {
+        user.isOnline = true;
+
+        return user;
+    });
+
+    res.send(users);
 });
 
 app.get('*', (req, res) => {

@@ -18,6 +18,8 @@ class ChatMembers extends React.Component {
                 <ul>
                     {this.props.members.map(member =>
                         <li className="chatMemberContainer" key={member.id}>
+                            <div className="onlineIndicator"
+                                 style={{visibility: member.isOnline ? 'visible' : 'hidden'}}></div>
                             <img alt="Avatar" src={member.avatar}/>
                             <p>{member.name}</p>
                         </li>

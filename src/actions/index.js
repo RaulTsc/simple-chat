@@ -70,3 +70,8 @@ export const getUsers = () => {
             .then(json => dispatch(getUsersSuccess(json)))
     }
 };
+
+export const onlineUsers = (data) => ({
+    type : 'ONLINE_USERS',
+    users: data
+});
