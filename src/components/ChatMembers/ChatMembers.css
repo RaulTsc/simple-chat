@@ -9,6 +9,7 @@
 .chatMemberContainer {
     display: flex;
     height: 30px;
+    margin-top: 10px;
 }
 
 .chatMemberContainer img {

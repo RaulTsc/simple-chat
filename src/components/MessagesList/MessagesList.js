@@ -20,7 +20,7 @@ MessagesList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    messages: state.messages
+    messages: state.messages.messages
 });
 
 MessagesList = connect(

@@ -28,8 +28,9 @@ class ChatInput extends React.Component {
 
         if (!this.input.value.trim()) return;
         socket.emit('chat message', {
-            text: this.input.value.trim(),
-            from: this.props.currentMember.name
+            text  : this.input.value.trim(),
+            from  : this.props.currentMember.name,
+            userId: this.props.currentMember.id
         });
         this.input.value = '';
     }

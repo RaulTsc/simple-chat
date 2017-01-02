@@ -20,10 +20,6 @@ import {onlineUsers} from './actions'
 
 import './index.css';
 
-socket.on('onlineUsers', function (data) {
-    store.dispatch(onlineUsers(data));
-}.bind(this));
-
 import reducer from './reducers';
 const store = createStore(
     reducer,
@@ -32,6 +28,10 @@ const store = createStore(
         loggerMiddleware // neat middleware that logs actions
     )
 );
+
+socket.on('onlineUsers', function (data) {
+    store.dispatch(onlineUsers(data));
+});
 
 ReactDOM.render(
     <Provider store={store}>

@@ -12,9 +12,6 @@ function compare(a, b) {
 }
 
 const members = (state = {currentMember: {}, allMembers: []}, action) => {
-    let onlineMembers;
-    let offlineMembers;
-
     switch (action.type) {
         case 'CREATE_USER_REQUEST':
             state = {
@@ -28,15 +25,21 @@ const members = (state = {currentMember: {}, allMembers: []}, action) => {
             break;
 
         case 'GET_USERS_REQUEST_SUCCESS':
-            onlineMembers  = action.users.filter(user => user.isOnline === true);
-            offlineMembers = action.users.filter(user => user.isOnline === false);
+            let onlineMembers  = action.users.filter(user => user.isOnline === true);
+            let offlineMembers = action.users.filter(user => user.isOnline === false);
 
-            onlineMembers = onlineMembers.sort(compare);
+            onlineMembers  = onlineMembers.sort(compare);
             offlineMembers = offlineMembers.sort(compare);
+
+            let allMembers = onlineMembers.concat(offlineMembers).map(member => {
+                member.isMuted = false;
+
+                return member;
+            });
 
             state = {
                 ...state,
-                allMembers: onlineMembers.concat(offlineMembers)
+                allMembers: allMembers
             };
             break;
 
@@ -55,15 +58,38 @@ const members = (state = {currentMember: {}, allMembers: []}, action) => {
                 newAllMembers.push(member);
             });
 
-            let onlineMembers  = newAllMembers.filter(user => user.isOnline === true);
-            let offlineMembers = newAllMembers.filter(user => user.isOnline === false);
+            let onlineMembersOnlineUsers  = newAllMembers.filter(user => user.isOnline === true);
+            let offlineMembersOnlineUsers = newAllMembers.filter(user => user.isOnline === false);
 
-            onlineMembers = onlineMembers.sort(compare);
-            offlineMembers = offlineMembers.sort(compare);
+            onlineMembersOnlineUsers  = onlineMembersOnlineUsers.sort(compare);
+            offlineMembersOnlineUsers = offlineMembersOnlineUsers.sort(compare);
+
+            let allMembersOnlineUsers = onlineMembersOnlineUsers.concat(offlineMembersOnlineUsers).map(member => {
+                member.isMuted = false;
+
+                return member;
+            });
 
             state = {
                 ...state,
-                allMembers: onlineMembers.concat(offlineMembers)
+                allMembers: allMembersOnlineUsers
+            };
+
+            break;
+
+        case 'MUTE_USER':
+            let newAllMembersMuteUser = [];
+
+            state.allMembers.forEach(member => {
+                if (action.user.id === member.id) {
+                    member.isMuted = !member.isMuted;
+                }
+                newAllMembersMuteUser.push(member);
+            });
+
+            state = {
+                ...state,
+                allMembers: newAllMembersMuteUser
             };
 
             break;
