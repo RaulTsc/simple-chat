@@ -7,7 +7,6 @@ import Header from '../Header/Header'
 import ChatMembers from '../ChatMembers/ChatMembers';
 import MessagesList from '../MessagesList/MessagesList';
 import ChatInput from '../ChatInput/ChatInput';
-import {onlineUsers} from '../../actions'
 
 import io from 'socket.io-client';
 const socket = io.connect();
@@ -24,10 +23,6 @@ class App extends Component {
                 userId: this.props.currentMember.id
             })
         });
-
-        socket.on('onlineUsers', function (data) {
-            this.props.dispatch(onlineUsers(data))
-        }.bind(this));
     }
 
     render() {

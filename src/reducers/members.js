@@ -1,6 +1,20 @@
 // @flow
 
+function compare(a, b) {
+    var splitA = a.name.split(" ");
+    var splitB = b.name.split(" ");
+    var lastA  = splitA[splitA.length - 1];
+    var lastB  = splitB[splitB.length - 1];
+
+    if (lastA < lastB) return -1;
+    if (lastA > lastB) return 1;
+    return 0;
+}
+
 const members = (state = {currentMember: {}, allMembers: []}, action) => {
+    let onlineMembers;
+    let offlineMembers;
+
     switch (action.type) {
         case 'CREATE_USER_REQUEST':
             state = {
@@ -14,9 +28,15 @@ const members = (state = {currentMember: {}, allMembers: []}, action) => {
             break;
 
         case 'GET_USERS_REQUEST_SUCCESS':
+            onlineMembers  = action.users.filter(user => user.isOnline === true);
+            offlineMembers = action.users.filter(user => user.isOnline === false);
+
+            onlineMembers = onlineMembers.sort(compare);
+            offlineMembers = offlineMembers.sort(compare);
+
             state = {
                 ...state,
-                allMembers: action.users
+                allMembers: onlineMembers.concat(offlineMembers)
             };
             break;
 
@@ -35,9 +55,15 @@ const members = (state = {currentMember: {}, allMembers: []}, action) => {
                 newAllMembers.push(member);
             });
 
+            let onlineMembers  = newAllMembers.filter(user => user.isOnline === true);
+            let offlineMembers = newAllMembers.filter(user => user.isOnline === false);
+
+            onlineMembers = onlineMembers.sort(compare);
+            offlineMembers = offlineMembers.sort(compare);
+
             state = {
                 ...state,
-                allMembers: newAllMembers
+                allMembers: onlineMembers.concat(offlineMembers)
             };
 
             break;
@@ -47,7 +73,7 @@ const members = (state = {currentMember: {}, allMembers: []}, action) => {
     }
 
     if (localStorage.token) {
-        state.currentMember = JSON.parse(localStorage.currentMember);
+        state.currentMember = JSON.parse(localStorage.currentMember)
     }
 
     return state;

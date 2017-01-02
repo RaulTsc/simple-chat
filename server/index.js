@@ -34,10 +34,7 @@ io.on('connection', (socket) => {
     socket.on('handshakeComplete', (userData) => {
         onlineUsers.push(userData);
         io.sockets.emit('onlineUsers', onlineUsers);
-        console.log('handshake complete');
     });
-
-    io.sockets.emit('onlineUsers', onlineUsers);
 
     socket.emit('handshake', socket.id);
 });

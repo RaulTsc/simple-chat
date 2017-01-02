@@ -8,7 +8,7 @@ import './MessagesList.css'
 let MessagesList = ({messages}) => (
     <ul className="chat">
         {messages.map(message =>
-            <p key={message.id}>{message.from}: {message.text}</p>
+            <p key={message.id}>{message.from}: <strong>{message.text}</strong></p>
         )}
     </ul>
 );
