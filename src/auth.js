@@ -10,6 +10,7 @@ export default {
         // Make http register request
 
         localStorage.token = userInfo.id;
+        localStorage.currentMember = JSON.stringify(userInfo);
     },
 
     logout: () => {

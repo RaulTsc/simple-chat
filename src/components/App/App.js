@@ -3,9 +3,9 @@
 import React, {Component} from 'react';
 
 import Header from '../Header/Header'
-import MessagesList from '../../containers/MessagesListContainer';
+import MessagesList from '../MessagesList/MessagesList';
 import ChatInput from '../ChatInput/ChatInput';
-import ChatMembers from '../../containers/ChatMembersContainer';
+import ChatMembers from '../ChatMembers/ChatMembers';
 
 import './App.css'
 

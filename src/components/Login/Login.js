@@ -28,7 +28,7 @@ let Login = ({dispatch}) => {
         <div className="loginButtonWrapper">
             <FacebookLogin
                 appId="371359853214253"
-                autoLoad={true}
+                autoLoad={false}
                 fields="name,email,picture"
                 callback={responseFacebook}/>
         </div>

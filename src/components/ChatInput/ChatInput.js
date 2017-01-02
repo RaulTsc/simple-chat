@@ -10,58 +10,53 @@ const socket = io.connect();
 
 import './ChatInput.css'
 
-const mapStateToProps = (state) => {
-    state.members = [
-        {
-            id    : '1',
-            name  : 'Raul Tomescu',
-            avatar: ''
-        }
-    ];
-    return {
-        members: state.members
+class ChatInput extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.input = null;
+
+        socket.on('chat message', (msg) => {
+            this.props.dispatch(sendMessage(msg));
+        });
+
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
-};
 
-
-let ChatInput = ({dispatch, members}) => {
-    let input;
-
-    console.log(members);
-
-    socket.on('chat message', (msg) => {
-        dispatch(sendMessage(msg));
-    });
-
-    let handleFormSubmit = (e) => {
+    handleFormSubmit(e) {
         e.preventDefault();
 
-        if (!input.value.trim()) return;
+        if (!this.input.value.trim()) return;
+        socket.emit('chat message', {
+            text: this.input.value.trim(),
+            from: this.props.currentMember.name
+        });
+        this.input.value = '';
+    }
 
-        socket.emit('chat message', input.value.trim());
+    render() {
+        return (
+            <div className="inputWrapper">
+                <form className="form" onSubmit={this.handleFormSubmit}>
+                    <input className="input" ref={node => {
+                        this.input = node
+                    }}/>
 
-        input.value = '';
-    };
-
-    return (
-        <div className="inputWrapper">
-            <form className="form" onSubmit={handleFormSubmit}>
-                <input className="input" ref={node => {
-                    input = node
-                }}/>
-
-                <button className="button" type="submit">Send</button>
-            </form>
-        </div>
-    )
-};
+                    <button className="button" type="submit">Send</button>
+                </form>
+            </div>
+        );
+    }
+}
 
 ChatInput.propTypes = {
-    members: PropTypes.arrayOf(PropTypes.shape({
-        id    : PropTypes.string.isRequired,
-        name  : PropTypes.string.isRequired,
-        avatar: PropTypes.string.isRequired
-    }).isRequired).isRequired
+    currentMember: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => {
+    return {
+        currentMember: state.members.currentMember
+    }
 };
 
 ChatInput = connect(

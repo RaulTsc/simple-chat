@@ -7,7 +7,8 @@ const messages = (state = [], action) => {
                 ...state,
                 {
                     id  : action.id,
-                    text: action.text
+                    text: action.text,
+                    from: action.from
                 }
             ];
             break;
