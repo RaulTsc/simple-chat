@@ -2,12 +2,15 @@
 
 const User = require('../models/user');
 
-module.exports = (user, cb) => {
+module.exports = (user) => {
     const userDb = new User(user);
 
     userDb.save(err => {
-        if (err) cb(err);
+        if (err) return err;
 
-        cb(user);
+        console.log('User was saved');
+        // Do nothing on success; we don't care if the save was successful at this point
     });
+
+    return user;
 };
