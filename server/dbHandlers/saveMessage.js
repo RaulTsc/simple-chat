@@ -1,19 +1,13 @@
 'use strict';
 
-const fs = require('fs');
+const Message = require('../models/message');
 
-const userNotExists = (users, user) => {
-    return users.filter(x => x.id === user.id).length === 0;
-};
+module.exports = (msg) => {
+    const msgDb = new Message(msg);
 
-module.exports = (user) => {
-    let users = JSON.parse(fs.readFileSync(__dirname + '/users.json', 'utf-8'));
+    msgDb.save(err => {
+        if (err) return err;
 
-    if (userNotExists(users, user)) {
-        users.push(user);
-    }
-
-    fs.writeFileSync(__dirname + '/users.json', JSON.stringify(users));
-
-    return user;
+        // Don't care if msgs were succesfully saved, we want it to be fast
+    });
 };
