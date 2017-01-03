@@ -10,13 +10,10 @@ import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import createLogger from 'redux-logger'
 const loggerMiddleware = createLogger()
-import io from 'socket.io-client';
-const socket = io.connect();
 
 import Login from './components/Login/Login'
 import App from './components/App/App';
 import {withExampleBasename, requireAuth, notLoggedIn} from './helpers';
-import {onlineUsers} from './actions'
 
 import './index.css';
 
@@ -29,9 +26,8 @@ const store = createStore(
     )
 );
 
-socket.on('onlineUsers', function (data) {
-    store.dispatch(onlineUsers(data));
-});
+import SocketCommunicationHandler from './services/socketCommunicationHandler';
+SocketCommunicationHandler.handleCommunication(store);
 
 ReactDOM.render(
     <Provider store={store}>

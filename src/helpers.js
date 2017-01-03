@@ -3,7 +3,7 @@
 // React-router stuff
 import useBasename from 'history/lib/useBasename'
 
-import auth from './auth';
+import auth from './services/auth';
 
 // Redirect to /login when trying to access anything and not logged in
 export const requireAuth = (nextState: Object, replace: Function) => {

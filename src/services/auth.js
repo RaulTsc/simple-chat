@@ -7,8 +7,6 @@ export default {
     },
 
     login: (userInfo: Object) => {
-        // Make http register request
-
         localStorage.token = userInfo.id;
         localStorage.currentMember = JSON.stringify(userInfo);
     },

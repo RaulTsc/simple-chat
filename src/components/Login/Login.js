@@ -5,7 +5,7 @@ import FacebookLogin from 'react-facebook-login';
 import {connect} from 'react-redux'
 import {browserHistory} from 'react-router';
 
-import auth from '../../auth';
+import auth from '../../services/auth';
 import {createUser} from '../../actions'
 
 import './Login.css'

@@ -3,8 +3,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 
-import {sendMessage} from '../../actions'
-
 import io from 'socket.io-client';
 const socket = io.connect();
 
@@ -15,10 +13,6 @@ class ChatInput extends React.Component {
 
     constructor(props) {
         super(props);
-
-        socket.on('chat message', (msg) => {
-            this.props.dispatch(sendMessage(msg));
-        });
 
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }

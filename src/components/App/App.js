@@ -8,23 +8,9 @@ import ChatMembers from '../ChatMembers/ChatMembers';
 import MessagesList from '../MessagesList/MessagesList';
 import ChatInput from '../ChatInput/ChatInput';
 
-import io from 'socket.io-client';
-const socket = io.connect();
-
 import './App.css'
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-
-        socket.on('handshake', (socketId) => {
-            socket.emit('handshakeComplete', {
-                socketId,
-                userId: this.props.currentMember.id
-            })
-        });
-    }
-
     render() {
         return (
             <div className="App">
