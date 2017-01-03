@@ -13,6 +13,11 @@ class MessagesList extends React.Component {
         this.props.dispatch(getMessages());
     }
 
+    componentDidUpdate() {
+        let chat = document.getElementsByClassName('chat')[0];
+        chat.scrollTop = chat.scrollHeight;
+    }
+
     render() {
         return (
             <ul className="chat">
