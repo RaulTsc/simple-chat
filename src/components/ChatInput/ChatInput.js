@@ -3,8 +3,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 
-import io from 'socket.io-client';
-const socket = io.connect();
+import SocketCommunicationHandler from '../../services/SocketCommunicationHandler';
 
 import './ChatInput.css'
 
@@ -21,11 +20,13 @@ class ChatInput extends React.Component {
         e.preventDefault();
 
         if (!this.input.value.trim()) return;
-        socket.emit('chat message', {
+
+        SocketCommunicationHandler.emit('chat message', {
             text    : this.input.value.trim(),
             fromName: this.props.currentMember.name,
             fromId  : this.props.currentMember.id
         });
+
         this.input.value = '';
     }
 

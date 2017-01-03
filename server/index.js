@@ -46,12 +46,13 @@ io.on('connection', (socket) => {
         io.sockets.emit('onlineUsers', onlineUsers);
     });
 
-    socket.on('handshakeComplete', (userData) => {
-        onlineUsers.push(userData);
+    socket.on('userWentOnline', (userData) => {
+        onlineUsers.push({
+            userId  : userData.userId,
+            socketId: socket.id
+        });
         io.sockets.emit('onlineUsers', onlineUsers);
     });
-
-    socket.emit('handshake', socket.id);
 });
 
 app.post('/createUser', (req, res) => {
@@ -60,18 +61,29 @@ app.post('/createUser', (req, res) => {
     });
 });
 
+// Only on page load
 app.get('/users', (req, res) => {
     getUsers((users) => {
         users = users.map(user => {
+            let isOnline = false;
+
+            onlineUsers.forEach(onlineUser => {
+                if (user.id === onlineUser.userId) {
+                    isOnline = true;
+                }
+            });
+
             return {
                 id      : user.id,
                 name    : user.name,
                 avatar  : user.avatar,
-                isOnline: true
+                isOnline
             };
         });
 
         res.send(users);
+
+
     });
 });
 

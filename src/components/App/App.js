@@ -10,7 +10,15 @@ import ChatInput from '../ChatInput/ChatInput';
 
 import './App.css'
 
+import SocketCommunicationHandler from '../../services/SocketCommunicationHandler';
+
 class App extends Component {
+    componentDidMount() {
+        SocketCommunicationHandler.emit('userWentOnline', {
+            userId: this.props.currentMember.id
+        });
+    }
+
     render() {
         return (
             <div className="App">

@@ -26,7 +26,7 @@ const store = createStore(
     )
 );
 
-import SocketCommunicationHandler from './services/socketCommunicationHandler';
+import SocketCommunicationHandler from './services/SocketCommunicationHandler';
 SocketCommunicationHandler.handleCommunication(store);
 
 ReactDOM.render(

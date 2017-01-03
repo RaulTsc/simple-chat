@@ -28,6 +28,16 @@ const members = (state: Object = {currentMember: {}, allMembers: []}, action: Ob
             let onlineMembers  = action.users.filter(user => user.isOnline === true);
             let offlineMembers = action.users.filter(user => user.isOnline === false);
 
+            // currentMember is ALWAYS online (this happens if GET_USERS_REQUEST_SUCCESS comes after ONLINEUSERS
+            // because the app is not yet mounted and the userWentOnline event is not dispatched
+            offlineMembers.forEach((offlineMember, index) => {
+                if (offlineMember.id === state.currentMember.id) {
+                    offlineMember.isOnline = true;
+                    offlineMembers.splice(index, 1);
+                    onlineMembers.push(offlineMember);
+                }
+            });
+
             onlineMembers  = onlineMembers.sort(compare);
             offlineMembers = offlineMembers.sort(compare);
 
