@@ -8,15 +8,15 @@ const messages = (state = {messages: [], mutedUsers: []}, action) => {
     switch (action.type) {
         case 'SEND_MSG':
             debugger;
-            if (shouldDisplayMessage(state.mutedUsers, action.userId)) {
+            if (shouldDisplayMessage(state.mutedUsers, action.fromId)) {
                 state = {
                     ...state,
                     messages: [
                         ...state.messages,
                         {
-                            id  : action.id,
-                            text: action.text,
-                            from: action.from
+                            id      : action.id,
+                            text    : action.text,
+                            fromName: action.fromName
                         }
                     ]
                 };

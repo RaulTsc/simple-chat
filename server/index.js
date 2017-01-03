@@ -7,9 +7,19 @@ const cors       = require('cors');
 const http       = require('http').Server(app);
 const io         = require('socket.io')(http);
 const bodyParser = require('body-parser');
+const mongoose   = require('mongoose');
 
-const saveUser = require('./saveUser');
-const getUsers = require('./getUsers');
+// DB setup
+mongoose.connect('mongodb://mongo:27017/simpleChat');
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+    console.log('Successfully connected to db! :)');
+});
+
+const saveUser = require('./dbHandlers/saveUser');
+const getUsers = require('./dbHandlers/getUsers');
 
 // Enable CORS
 app.use(cors());
@@ -23,6 +33,9 @@ let onlineUsers = [];
 
 io.on('connection', (socket) => {
     socket.on('chat message', (msg) => {
+        // Async; don't care if it fails at this point
+        saveMessage(msg);
+
         io.emit('chat message', msg);
     });
 
@@ -44,15 +57,18 @@ app.post('/createUser', (req, res) => {
 });
 
 app.get('/users', (req, res) => {
-    let users = getUsers();
+    getUsers((users) => {
+        users = users.map(user => {
+            return {
+                id      : user.id,
+                name    : user.name,
+                avatar  : user.avatar,
+                isOnline: true
+            };
+        });
 
-    users = users.map(user => {
-        user.isOnline = true;
-
-        return user;
+        res.send(users);
     });
-
-    res.send(users);
 });
 
 app.get('*', (req, res) => {

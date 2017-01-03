@@ -5,11 +5,11 @@ import fetch from 'isomorphic-fetch';
 let msgId = 0;
 
 export const sendMessage = (msg) => ({
-    id    : msgId++,
-    type  : 'SEND_MSG',
-    text  : msg.text,
-    from  : msg.from,
-    userId: msg.userId
+    id      : msgId++,
+    type    : 'SEND_MSG',
+    text    : msg.text,
+    fromName: msg.fromName,
+    fromId  : msg.fromId
 });
 
 // In case we want to display loading
@@ -31,7 +31,7 @@ export const createUser = (user) => {
     return (dispatch) => {
         dispatch(createUserRequest(user))
 
-        return fetch(`http://localhost:9000/createUser`, {
+        return fetch(`/createUser`, {
             method : 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ export const getUsers = () => {
     return (dispatch) => {
         dispatch(getUsersRequest());
 
-        return fetch(`http://localhost:9000/users`)
+        return fetch(`/users`)
             .then(response => response.json())
             .then(json => dispatch(getUsersSuccess(json)))
     }
