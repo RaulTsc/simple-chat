@@ -4,7 +4,7 @@ import fetch from 'isomorphic-fetch';
 
 let msgId = 0;
 
-export const sendMessage = (msg) => ({
+export const sendMessage = (msg: Object) => ({
     id      : msgId++,
     type    : 'SEND_MSG',
     text    : msg.text,
@@ -27,8 +27,8 @@ const createUserSuccess = (user) => {
     }
 };
 
-export const createUser = (user) => {
-    return (dispatch) => {
+export const createUser = (user: Object) => {
+    return (dispatch: Function) => {
         dispatch(createUserRequest(user))
 
         return fetch(`/createUser`, {
@@ -61,7 +61,7 @@ const getUsersSuccess = (users) => {
 };
 
 export const getUsers = () => {
-    return (dispatch) => {
+    return (dispatch: Function) => {
         dispatch(getUsersRequest());
 
         return fetch(`/users`)
@@ -85,7 +85,7 @@ const getMessagesSuccess = (msgs) => {
 };
 
 export const getMessages = () => {
-    return (dispatch) => {
+    return (dispatch: Function) => {
         dispatch(getMessagesRequest());
 
         return fetch(`/messages`)
@@ -94,17 +94,17 @@ export const getMessages = () => {
     }
 };
 
-export const onlineUsers = (data) => ({
+export const onlineUsers = (data: Object) => ({
     type : 'ONLINE_USERS',
     users: data
 });
 
-export const muteUser = (user) => ({
+export const muteUser = (user: Object) => ({
     type: 'MUTE_USER',
     user
 });
 
-export const muteUserMsgs = (userId) => ({
+export const muteUserMsgs = (userId: String) => ({
     type: 'MUTE_USER_MSGS',
     userId
 });

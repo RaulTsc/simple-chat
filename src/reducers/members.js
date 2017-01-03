@@ -11,7 +11,7 @@ function compare(a, b) {
     return 0;
 }
 
-const members = (state = {currentMember: {}, allMembers: []}, action) => {
+const members = (state: Object = {currentMember: {}, allMembers: []}, action: Object) => {
     switch (action.type) {
         case 'CREATE_USER_REQUEST':
             state = {

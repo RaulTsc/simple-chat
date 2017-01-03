@@ -6,7 +6,7 @@ export default {
         return !!localStorage.token;
     },
 
-    login: (userInfo) => {
+    login: (userInfo: Object) => {
         // Make http register request
 
         localStorage.token = userInfo.id;

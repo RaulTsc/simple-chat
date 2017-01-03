@@ -4,7 +4,7 @@ const shouldDisplayMessage = (mutedUsers, userId) => {
     return mutedUsers.filter(x => x === userId).length === 0;
 };
 
-const messages = (state = {messages: [], mutedUsers: []}, action) => {
+const messages = (state: Object = {messages: [], mutedUsers: []}, action: Object) => {
     switch (action.type) {
         case 'SEND_MSG':
             debugger;

@@ -11,10 +11,10 @@ const socket = io.connect();
 import './ChatInput.css'
 
 class ChatInput extends React.Component {
-    constructor(props) {
-        super(props)
+    input: Object
 
-        this.input = null;
+    constructor(props) {
+        super(props);
 
         socket.on('chat message', (msg) => {
             this.props.dispatch(sendMessage(msg));
