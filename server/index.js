@@ -56,9 +56,9 @@ io.on('connection', (socket) => {
 });
 
 app.post('/createUser', (req, res) => {
-    saveUser(req.body);
-
-    res.send(req.body);
+    saveUser(req.body, (user) => {
+        res.send(user);
+    });
 });
 
 app.get('/users', (req, res) => {
