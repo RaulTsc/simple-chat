@@ -33,6 +33,14 @@ const messages = (state = {messages: [], mutedUsers: []}, action) => {
 
             break;
 
+        case 'GET_MSGS_REQUEST_SUCCESS':
+            state = {
+                ...state,
+                messages: action.msgs
+            };
+
+            break;
+
         default:
         // Do nothing
     }

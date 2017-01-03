@@ -3,20 +3,32 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 
+import {getMessages} from '../../actions'
+
 import './MessagesList.css'
 
-let MessagesList = ({messages}) => (
-    <ul className="chat">
-        {messages.map(message =>
-            <p key={message.id}>{message.from}: <strong>{message.text}</strong></p>
-        )}
-    </ul>
-);
+class MessagesList extends React.Component {
+    componentDidMount() {
+        // Dispatch action to load all users
+        this.props.dispatch(getMessages());
+    }
+
+    render() {
+        return (
+            <ul className="chat">
+                {this.props.messages.map(message =>
+                    <p key={message.id}>{message.fromName}: <strong>{message.text}</strong></p>
+                )}
+            </ul>
+        );
+    }
+}
 
 MessagesList.propTypes = {
     messages: PropTypes.arrayOf(PropTypes.shape({
         text: PropTypes.string.isRequired
-    }).isRequired).isRequired
+    }).isRequired).isRequired,
+    dispatch: React.PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({

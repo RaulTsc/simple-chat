@@ -70,6 +70,30 @@ export const getUsers = () => {
     }
 };
 
+// In case we want to display loading
+const getMessagesRequest = () => {
+    return {
+        type: 'GET_MSGS_REQUEST'
+    }
+};
+
+const getMessagesSuccess = (msgs) => {
+    return {
+        type: 'GET_MSGS_REQUEST_SUCCESS',
+        msgs
+    }
+};
+
+export const getMessages = () => {
+    return (dispatch) => {
+        dispatch(getMessagesRequest());
+
+        return fetch(`/messages`)
+            .then(response => response.json())
+            .then(json => dispatch(getMessagesSuccess(json)))
+    }
+};
+
 export const onlineUsers = (data) => ({
     type : 'ONLINE_USERS',
     users: data

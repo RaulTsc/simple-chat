@@ -21,6 +21,7 @@ db.once('open', () => {
 const saveUser    = require('./dbHandlers/saveUser');
 const getUsers    = require('./dbHandlers/getUsers');
 const saveMessage = require('./dbHandlers/saveMessage');
+const getMessages = require('./dbHandlers/getMessages');
 
 // Enable CORS
 app.use(cors());
@@ -36,8 +37,6 @@ io.on('connection', (socket) => {
     socket.on('chat message', (msg) => {
         // Async; don't care if it fails at this point
         saveMessage(msg);
-
-        console.log(msg);
 
         io.emit('chat message', msg);
     });
@@ -73,6 +72,20 @@ app.get('/users', (req, res) => {
         });
 
         res.send(users);
+    });
+});
+
+app.get('/messages', (req, res) => {
+    getMessages((msgs) => {
+        msgs = msgs.map(msg => {
+            return {
+                text    : msg.text,
+                fromName: msg.fromName,
+                fromId  : msg.fromId
+            };
+        });
+
+        res.send(msgs);
     });
 });
 
