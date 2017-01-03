@@ -9,9 +9,5 @@ export default {
     login: (userInfo: Object) => {
         localStorage.token = userInfo.id;
         localStorage.currentMember = JSON.stringify(userInfo);
-    },
-
-    logout: () => {
-        // Not implemented at this point :)
     }
 };

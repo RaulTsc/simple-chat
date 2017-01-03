@@ -1,13 +1,12 @@
 // @flow
 
-const shouldDisplayMessage = (mutedUsers, userId) => {
+export const shouldDisplayMessage = (mutedUsers, userId) => {
     return mutedUsers.filter(x => x === userId).length === 0;
 };
 
-const messages = (state: Object = {messages: [], mutedUsers: []}, action: Object) => {
+export default (state: Object = {messages: [], mutedUsers: []}, action: Object) => {
     switch (action.type) {
         case 'SEND_MSG':
-            debugger;
             if (shouldDisplayMessage(state.mutedUsers, action.fromId)) {
                 state = {
                     ...state,
@@ -47,5 +46,3 @@ const messages = (state: Object = {messages: [], mutedUsers: []}, action: Object
 
     return state;
 };
-
-export default messages
