@@ -4,10 +4,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Get started
 
-* `npm install`
-* `npm run flow` -- Runs flow
-* `npm start` -- Start in development mode -- The app is then served to `http://localhost:3000` but has no real BE, should be used only for UI development (has hot reload).
-* `npm run build` -- Build for production
-* `npm test` -- Run tests (Runs tests only if there are changes to files since last commit. Press `a` to run all tests.)
-* `npm test -- --coverage` -- Run coverage for tests
-* `docker-compose up` -- Boots up the app and a mongo container. The app is then served to `http://localhost:9000`. The server serves the built app found in `build/` so you might need to build it first using `npm run build`.
+* Clone repo; cd into it & run `npm install`
+
+* Make production build: `npm run build`
+* Boot up two docker containers(the app and a mongo instance): `docker-compose up`. Run `npm run build` to build the app prior to this.
+* Run test coverage: `npm test -- --coverage`
+* Run tests(by default runs only if there are changes so we have that sweet automatic reload; if you get a warning stating that there were no changes press `a` to run anyway): `npm test`
+* Run flow: `npm run flow`
+* Start app in UI development mode (no functionality is working since it has no real BE): `npm start`
+

@@ -3,7 +3,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
-import Header from './Header/Header'
+import Header from '../Header/Header'
 import MainBody from './MainBody/MainBody';
 
 import './App.css'
