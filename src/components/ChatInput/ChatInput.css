@@ -3,6 +3,7 @@
     width: 70%;
     height: 100px;
     align-items: center;
+    margin-left: auto;
 }
 
 .input {
@@ -11,6 +12,7 @@
     padding: 0;
     margin: 0;
     font-size: 30px;
+    margin-right: 40px;
 }
 
 .form {
@@ -22,4 +24,12 @@
     width: 19%;
     padding: 0;
     margin: 0;
+    margin-right: 20px;
+}
+
+@media (max-width: 600px) {
+    .inputWrapper {
+        height: 12%;
+        width: 100%;
+    }
 }
