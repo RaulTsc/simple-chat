@@ -82,8 +82,6 @@ app.get('/users', (req, res) => {
         });
 
         res.send(users);
-
-
     });
 });
 
