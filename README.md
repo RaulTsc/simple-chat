@@ -6,8 +6,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 * Clone repo; cd into it & run `npm install`
 
-* Make production build: `npm run build`
-* Boot up two docker containers(the app and a mongo instance): `docker-compose up`. Run `npm run build` to build the app prior to this.
+* Build app for production: `npm run build`
+* Boot up two docker containers(the app and a mongo instance): `docker-compose up`. Might need to run `npm run build` to build the app prior to this.
 * Run test coverage: `npm test -- --coverage`
 * Run tests(by default runs only if there are changes so we have that sweet automatic reload; if you get a warning stating that there were no changes press `a` to run anyway): `npm test`
 * Run flow: `npm run flow`
