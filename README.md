@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 * `npm install`
 * `npm run flow` -- Runs flow
-* `npm start` -- Start in development mode -- The app is then served to `http://localhost:3000` but has no real BE, should be used only for UI development. It has hot reload.
+* `npm start` -- Start in development mode -- The app is then served to `http://localhost:3000` but has no real BE, should be used only for UI development (has hot reload).
 * `npm run build` -- Build for production
 * `npm test` -- Run tests (Runs tests only if there are changes to files since last commit. Press `a` to run all tests.)
 * `npm test -- --coverage` -- Run coverage for tests
