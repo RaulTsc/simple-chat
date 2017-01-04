@@ -3,7 +3,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 
-import SocketCommunicationHandler from '../../services/SocketCommunicationHandler';
+import SocketCommunicationHandler from '../../../../services/SocketCommunicationHandler';
 
 import './ChatInput.css'
 

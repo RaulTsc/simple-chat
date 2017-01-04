@@ -3,14 +3,17 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 
-import {getUsers, muteUser, muteUserMsgs} from '../../actions'
-import './ChatMembers.css'
+import MessagesList from './MessagesList/MessagesList';
+import ChatInput from './ChatInput/ChatInput';
+
+import {getUsers, muteUser, muteUserMsgs} from '../../../actions'
+import './MainBody.css'
 
 var Sidebar = require('react-sidebar').default;
 
 var SidebarWrapper = React.createClass({
     getInitialState() {
-        return {sidebarOpen: false, sidebarDocked: false};
+        return {sidebarOpen: false, sidebarDocked: true};
     },
 
     onSetSidebarOpen: function (open) {
@@ -70,33 +73,30 @@ var SidebarWrapper = React.createClass({
             <Sidebar sidebar={sidebarContent}
                      open={this.state.sidebarOpen}
                      docked={this.state.sidebarDocked}
-                     onSetOpen={this.onSetSidebarOpen}>
+                     onSetOpen={this.onSetSidebarOpen}
+                     styles={{}}>
+                <MessagesList />
+                <ChatInput />
             </Sidebar>
         );
     }
 });
 
-class ChatMembers extends React.Component {
+class MainBody extends React.Component {
     componentDidMount() {
         // Dispatch action to load all users
         this.props.dispatch(getUsers());
     }
 
     render() {
-        // :( Sad. I know. Sidebar puts up a div overlay over the page and we need this
-        // to make events pass through it
-        setTimeout(() => {
-            document.getElementsByClassName('App')[0].children[1].style.pointerEvents = 'none';
-        }, 0);
-
         return (
-            <SidebarWrapper style={{pointerEvents: 'none'}} members={this.props.members}
+            <SidebarWrapper members={this.props.members}
                             dispatch={this.props.dispatch}/>
         );
     }
 }
 
-ChatMembers.propTypes = {
+MainBody.propTypes = {
     members : PropTypes.arrayOf(PropTypes.shape({
         id    : PropTypes.string.isRequired,
         name  : PropTypes.string.isRequired,
@@ -111,8 +111,8 @@ const mapStateToProps = (state) => {
     }
 };
 
-ChatMembers = connect(
+MainBody = connect(
     mapStateToProps
-)(ChatMembers);
+)(MainBody);
 
-export default ChatMembers;
+export default MainBody;

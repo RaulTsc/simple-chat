@@ -3,7 +3,7 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 
-import {getMessages} from '../../actions'
+import {getMessages} from '../../../../actions'
 
 import './MessagesList.css'
 
@@ -14,17 +14,21 @@ class MessagesList extends React.Component {
     }
 
     componentDidUpdate() {
-        let chat = document.getElementsByClassName('chat')[0];
+        let chat       = document.getElementsByClassName('chat')[0];
         chat.scrollTop = chat.scrollHeight;
     }
 
     render() {
         return (
-            <ul className="chat">
-                {this.props.messages.map(message =>
-                    <p key={message.id}>{message.fromName}: <strong>{message.text}</strong></p>
-                )}
-            </ul>
+            <div style={{height: '90%'}}>
+                <div style={{paddingTop: '3%', height: '20%'}}>
+                </div>
+                <ul className="chat">
+                    {this.props.messages.map(message =>
+                        <p key={message.id}>{message.fromName}: <strong>{message.text}</strong></p>
+                    )}
+                </ul>
+            </div>
         );
     }
 }
