@@ -4,7 +4,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import Header from './Header/Header'
-import ChatMembers from './MainBody/MainBody';
+import MainBody from './MainBody/MainBody';
 
 import './App.css'
 
@@ -21,7 +21,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Header />
-                <ChatMembers />
+                <MainBody />
             </div>
         )
     }

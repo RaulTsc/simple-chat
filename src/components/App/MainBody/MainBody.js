@@ -9,15 +9,21 @@ import ChatInput from './ChatInput/ChatInput';
 import {getUsers, muteUser, muteUserMsgs} from '../../../actions'
 import './MainBody.css'
 
-var Sidebar = require('react-sidebar').default;
+let Sidebar = require('react-sidebar').default;
 
-var SidebarWrapper = React.createClass({
+let MainBody = React.createClass({
     getInitialState() {
-        return {sidebarOpen: false, sidebarDocked: true};
+        let showSidebarButton = document.documentElement.clientWidth <= 800;
+
+        return {sidebarOpen: false, sidebarDocked: true, showSidebarButton};
     },
 
     onSetSidebarOpen: function (open) {
         this.setState({sidebarOpen: open});
+    },
+
+    componentDidMount() {
+        this.props.dispatch(getUsers());
     },
 
     componentWillMount: function () {
@@ -31,12 +37,17 @@ var SidebarWrapper = React.createClass({
     },
 
     mediaQueryChanged: function () {
-        this.setState({sidebarDocked: this.state.mql.matches});
+        this.setState({sidebarDocked: this.state.mql.matches, showSidebarButton: !this.state.showSidebarButton});
     },
 
     muteToggle(user) {
         this.props.dispatch(muteUser(user));
         this.props.dispatch(muteUserMsgs(user.id));
+    },
+
+    openCloseDock(e) {
+        e.preventDefault();
+        this.onSetSidebarOpen(!this.state.sidebarOpen);
     },
 
     render: function () {
@@ -73,28 +84,14 @@ var SidebarWrapper = React.createClass({
             <Sidebar sidebar={sidebarContent}
                      open={this.state.sidebarOpen}
                      docked={this.state.sidebarDocked}
-                     onSetOpen={this.onSetSidebarOpen}
-                     styles={{}}>
+                     onSetOpen={this.onSetSidebarOpen}>
+                {this.state.showSidebarButton ? <a onClick={this.openCloseDock} href="#" className="sidebarButton">=</a> : null }
                 <MessagesList />
                 <ChatInput />
             </Sidebar>
         );
     }
 });
-
-class MainBody extends React.Component {
-    componentDidMount() {
-        // Dispatch action to load all users
-        this.props.dispatch(getUsers());
-    }
-
-    render() {
-        return (
-            <SidebarWrapper members={this.props.members}
-                            dispatch={this.props.dispatch}/>
-        );
-    }
-}
 
 MainBody.propTypes = {
     members : PropTypes.arrayOf(PropTypes.shape({
