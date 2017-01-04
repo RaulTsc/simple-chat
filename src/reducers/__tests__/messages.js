@@ -1,7 +1,6 @@
 // @flow
 
-import messages from '../messages';
-import {shouldDisplayMessage} from '../messages';
+import messages, {shouldDisplayMessage} from '../messages';
 
 describe('state', () => {
     it('should be the same for invalid actions', () => {

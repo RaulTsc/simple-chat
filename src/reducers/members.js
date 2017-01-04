@@ -1,6 +1,9 @@
 // @flow
 
-function compare(a, b) {
+// Returns -1 if last name of a is BEFORE last name of b
+// Returns 0 if equal
+// Returns 1 otherwise
+export const compare = (a, b) => {
     var splitA = a.name.split(" ");
     var splitB = b.name.split(" ");
     var lastA  = splitA[splitA.length - 1];
@@ -9,9 +12,9 @@ function compare(a, b) {
     if (lastA < lastB) return -1;
     if (lastA > lastB) return 1;
     return 0;
-}
+};
 
-const members = (state: Object = {currentMember: {}, allMembers: []}, action: Object) => {
+export default (state: Object = {currentMember: {}, allMembers: []}, action: Object) => {
     switch (action.type) {
         case 'CREATE_USER_REQUEST':
             state = {
@@ -114,5 +117,3 @@ const members = (state: Object = {currentMember: {}, allMembers: []}, action: Ob
 
     return state;
 };
-
-export default members

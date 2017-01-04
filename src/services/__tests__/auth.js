@@ -39,8 +39,6 @@ describe('auth.login()', () => {
 
         let localStorageData = JSON.parse(localStorage.currentMember);
 
-        expect(localStorageData.id).toEqual(mockUser.id);
-        expect(localStorageData.name).toEqual(mockUser.name);
-        expect(localStorageData.avatar).toEqual(mockUser.avatar);
+        expect(localStorageData).toEqual(mockUser);
     });
 });
