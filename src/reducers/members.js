@@ -22,7 +22,8 @@ export default (state: Object = {currentMember: {}, allMembers: []}, action: Obj
                 currentMember: {
                     id    : action.user.id,
                     name  : action.user.name,
-                    avatar: action.user.avatar
+                    avatar: action.user.avatar,
+                    email : action.user.email
                 }
             };
             break;

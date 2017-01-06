@@ -16,7 +16,8 @@ let Login = ({dispatch}) => {
         const user = {
             name  : response.name,
             id    : response.id,
-            avatar: response.picture.data.url
+            avatar: response.picture.data.url,
+            email : response.email
         };
 
         auth.login(user);

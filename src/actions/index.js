@@ -40,7 +40,6 @@ export const createUser = (user: Object) => {
         })
             .then(response => response.json())
             .then(json => {
-                console.log(json);
                 return dispatch(createUserSuccess(json))
             })
     }
