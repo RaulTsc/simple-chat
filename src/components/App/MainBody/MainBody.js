@@ -4,6 +4,7 @@ import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 
 import MessagesList from './MessagesList/MessagesList';
+import UserTyping from './UserTyping/UserTyping';
 import ChatInput from './ChatInput/ChatInput';
 
 import {getUsers, muteUser, muteUserMsgs} from '../../../actions'
@@ -87,6 +88,7 @@ let MainBody = React.createClass({
                      onSetOpen={this.onSetSidebarOpen}>
                 {this.state.showSidebarButton ? <a onClick={this.openCloseDock} href="#" className="sidebarButton">=</a> : null }
                 <MessagesList />
+                <UserTyping />
                 <ChatInput />
             </Sidebar>
         );

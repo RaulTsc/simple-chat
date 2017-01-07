@@ -46,6 +46,14 @@ io.on('connection', (socket) => {
 
         app.set('onlineUsers', onlineUsers);
     });
+
+    socket.on('userIsTyping', (data) => {
+        io.sockets.emit('userIsTyping', data);
+    });
+
+    socket.on('userIsNotTyping', (data) => {
+        io.sockets.emit('userIsNotTyping', data);
+    });
 });
 
 const PORT = process.env.PORT || 9000;

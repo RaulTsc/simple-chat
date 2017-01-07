@@ -20,7 +20,7 @@ class MessagesList extends React.Component {
 
     render() {
         return (
-            <div style={{height: '90%'}}>
+            <div style={{height: '80%'}}>
                 <div style={{paddingTop: '3%', height: '20%'}}>
                 </div>
                 <ul className="chat">

@@ -107,3 +107,13 @@ export const muteUserMsgs = (userId: String) => ({
     type: 'MUTE_USER_MSGS',
     userId
 });
+
+export const userIsTyping = (data: Object) => ({
+    type: 'USER_IS_TYPING',
+    data
+});
+
+export const userIsNotTyping = (data: Object) => ({
+    type: 'USER_IS_NOT_TYPING',
+    data
+});

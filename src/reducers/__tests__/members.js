@@ -144,7 +144,51 @@ describe('state', () => {
 
         expect(newState.allMembers[3]).toEqual(mockUsers[2]);
         expect(newState.allMembers[3].isOnline).toBe(false);
-    })
+    });
+
+    it('should update userIsTyping when USER_IS_TYPING is dispatched', () => {
+        let prevState  = undefined;
+        let mockAction = {
+            type: 'USER_IS_TYPING',
+            data: {
+                fromName: 'Raul Tomescu',
+                fromId  : '12345678'
+            }
+        };
+        let newState   = members(prevState, mockAction);
+
+        console.log(newState);
+
+        expect(newState.userIsTyping.isTyping).toBe(true);
+        expect(newState.userIsTyping.userData.name).toEqual(mockAction.data.fromName);
+    });
+
+    it('should update userIsTyping when USER_IS_NOT_TYPING is dispatched', () => {
+        let prevState  = undefined;
+        let mockActionTyping = {
+            type: 'USER_IS_TYPING',
+            data: {
+                fromName: 'Raul Tomescu',
+                fromId  : '12345678'
+            }
+        };
+        let newState   = members(prevState, mockActionTyping);
+
+        expect(newState.userIsTyping.isTyping).toBe(true);
+        expect(newState.userIsTyping.userData.name).toEqual(mockActionTyping.data.fromName);
+
+        let mockActionNotTyping = {
+            type: 'USER_IS_NOT_TYPING',
+            data: {
+                fromName: 'Raul Tomescu',
+                fromId  : '12345678'
+            }
+        };
+        let newNewState = members(newState, mockActionNotTyping);
+
+        expect(newNewState.userIsTyping.isTyping).toBe(false);
+        expect(newNewState.userIsTyping.userData).toEqual({});
+    });
 });
 
 describe('compare', () => {

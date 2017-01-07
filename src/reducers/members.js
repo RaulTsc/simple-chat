@@ -14,7 +14,17 @@ export const compare = (a, b) => {
     return 0;
 };
 
-export default (state: Object = {currentMember: {}, allMembers: []}, action: Object) => {
+export default (state: Object, action: Object) => {
+    state = state ||
+        {
+            currentMember: {},
+            allMembers   : [],
+            userIsTyping : {
+                isTyping: false,
+                userData: {}
+            }
+        };
+
     switch (action.type) {
         case 'CREATE_USER_REQUEST':
             state = {
@@ -104,6 +114,38 @@ export default (state: Object = {currentMember: {}, allMembers: []}, action: Obj
             state = {
                 ...state,
                 allMembers: newAllMembersMuteUser
+            };
+
+            break;
+
+        case 'USER_IS_TYPING':
+            let newUserIsTyping = {
+                isTyping: true,
+                userData: {
+                    name: action.data.fromName
+                }
+            };
+
+            state = {
+                ...state,
+                userIsTyping: newUserIsTyping
+            };
+
+            break;
+
+        case 'USER_IS_NOT_TYPING':
+            let userIsNotTyping = state.userIsTyping;
+
+            if (action.data.fromName === state.userIsTyping.userData.name) {
+                userIsNotTyping = {
+                    isTyping: false,
+                    userData: {}
+                };
+            }
+
+            state = {
+                ...state,
+                userIsTyping: userIsNotTyping
             };
 
             break;

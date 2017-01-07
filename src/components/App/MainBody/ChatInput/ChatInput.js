@@ -14,6 +14,7 @@ class ChatInput extends React.Component {
         super(props);
 
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.onInputChange    = this.onInputChange.bind(this);
     }
 
     handleFormSubmit(e) {
@@ -27,14 +28,35 @@ class ChatInput extends React.Component {
             fromId  : this.props.currentMember.id
         });
 
+        SocketCommunicationHandler.emit('userIsNotTyping', {
+            fromName: this.props.currentMember.name,
+            fromId  : this.props.currentMember.id
+        });
+
         this.input.value = '';
+    }
+
+    onInputChange(e) {
+        e.preventDefault();
+
+        if (e.target.value.trim() !== '') {
+            SocketCommunicationHandler.emit('userIsTyping', {
+                fromName: this.props.currentMember.name,
+                fromId  : this.props.currentMember.id
+            });
+        } else {
+            SocketCommunicationHandler.emit('userIsNotTyping', {
+                fromName: this.props.currentMember.name,
+                fromId  : this.props.currentMember.id
+            });
+        }
     }
 
     render() {
         return (
             <div className="inputWrapper">
                 <form className="form" onSubmit={this.handleFormSubmit}>
-                    <input className="input" ref={node => {
+                    <input onChange={this.onInputChange} className="input" ref={node => {
                         this.input = node
                     }}/>
 
