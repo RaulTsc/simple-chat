@@ -19,10 +19,7 @@ export default (state: Object, action: Object) => {
         {
             currentMember: {},
             allMembers   : [],
-            userIsTyping : {
-                isTyping: false,
-                userData: {}
-            }
+            usersTyping  : []
         };
 
     switch (action.type) {
@@ -119,33 +116,28 @@ export default (state: Object, action: Object) => {
             break;
 
         case 'USER_IS_TYPING':
-            let newUserIsTyping = {
-                isTyping: true,
-                userData: {
-                    name: action.data.fromName
-                }
-            };
+            let usersTyping = [].concat(state.usersTyping);
+            let userIsNotAlreadyTyping = usersTyping.filter(x => x.userId === action.data.userId).length === 0;
+
+            if (userIsNotAlreadyTyping) {
+                usersTyping.push(action.data);
+            }
 
             state = {
                 ...state,
-                userIsTyping: newUserIsTyping
+                usersTyping: usersTyping
             };
 
             break;
 
         case 'USER_IS_NOT_TYPING':
-            let userIsNotTyping = state.userIsTyping;
+            let usersNotTyping = [].concat(state.usersTyping);
 
-            if (action.data.fromName === state.userIsTyping.userData.name) {
-                userIsNotTyping = {
-                    isTyping: false,
-                    userData: {}
-                };
-            }
+            usersNotTyping = usersNotTyping.filter(userNotTyping => userNotTyping.userId !== action.data.userId);
 
             state = {
                 ...state,
-                userIsTyping: userIsNotTyping
+                usersTyping: usersNotTyping
             };
 
             break;

@@ -151,43 +151,40 @@ describe('state', () => {
         let mockAction = {
             type: 'USER_IS_TYPING',
             data: {
-                fromName: 'Raul Tomescu',
-                fromId  : '12345678'
+                userName: 'Raul Tomescu',
+                userId  : '12345678'
             }
         };
         let newState   = members(prevState, mockAction);
 
-        console.log(newState);
-
-        expect(newState.userIsTyping.isTyping).toBe(true);
-        expect(newState.userIsTyping.userData.name).toEqual(mockAction.data.fromName);
+        expect(newState.usersTyping.length).toBe(1);
+        expect(newState.usersTyping[0]).toEqual(mockAction.data);
     });
 
     it('should update userIsTyping when USER_IS_NOT_TYPING is dispatched', () => {
-        let prevState  = undefined;
+        let prevState        = undefined;
         let mockActionTyping = {
             type: 'USER_IS_TYPING',
             data: {
-                fromName: 'Raul Tomescu',
-                fromId  : '12345678'
+                userName: 'Raul Tomescu',
+                userId  : '12345678'
             }
         };
-        let newState   = members(prevState, mockActionTyping);
+        let newState         = members(prevState, mockActionTyping);
 
-        expect(newState.userIsTyping.isTyping).toBe(true);
-        expect(newState.userIsTyping.userData.name).toEqual(mockActionTyping.data.fromName);
+        expect(newState.usersTyping.length).toBe(1);
+        expect(newState.usersTyping[0]).toEqual(mockActionTyping.data);
 
         let mockActionNotTyping = {
             type: 'USER_IS_NOT_TYPING',
             data: {
-                fromName: 'Raul Tomescu',
-                fromId  : '12345678'
+                userName: 'Raul Tomescu',
+                userId  : '12345678'
             }
         };
-        let newNewState = members(newState, mockActionNotTyping);
+        let newNewState         = members(newState, mockActionNotTyping);
 
-        expect(newNewState.userIsTyping.isTyping).toBe(false);
-        expect(newNewState.userIsTyping.userData).toEqual({});
+        expect(newNewState.usersTyping.length).toBe(0);
     });
 });
 

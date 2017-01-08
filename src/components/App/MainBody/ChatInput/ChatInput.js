@@ -29,8 +29,8 @@ class ChatInput extends React.Component {
         });
 
         SocketCommunicationHandler.emit('userIsNotTyping', {
-            fromName: this.props.currentMember.name,
-            fromId  : this.props.currentMember.id
+            userName: this.props.currentMember.name,
+            userId  : this.props.currentMember.id
         });
 
         this.input.value = '';
@@ -41,13 +41,13 @@ class ChatInput extends React.Component {
 
         if (e.target.value.trim() !== '') {
             SocketCommunicationHandler.emit('userIsTyping', {
-                fromName: this.props.currentMember.name,
-                fromId  : this.props.currentMember.id
+                userName: this.props.currentMember.name,
+                userId  : this.props.currentMember.id
             });
         } else {
             SocketCommunicationHandler.emit('userIsNotTyping', {
-                fromName: this.props.currentMember.name,
-                fromId  : this.props.currentMember.id
+                userName: this.props.currentMember.name,
+                userId  : this.props.currentMember.id
             });
         }
     }
